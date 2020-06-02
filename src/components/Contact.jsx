@@ -7,13 +7,13 @@ class Contact extends React.Component {
 					<span className="contact__avatar">
             <img src={this.props.contact.avatar} />
           </span>
-					<span className="contact__data">{this.props.contact.name}</span>
-					<span className="contact__data">{this.props.contact.phone}</span>
-					<span className="contact__data">{this.props.contact.country}</span>
-					<span className="contact__data">{this.props.contact.admissionDate}</span>
-					<span className="contact__data">{this.props.contact.company}</span>
-					<span className="contact__data">{this.props.contact.department}</span>
-				</article>
+		<span className="contact__data">{this.props.contact.name}</span>
+		<span className="contact__data">{this.props.contact.phone}</span>
+		<span className="contact__data">{this.props.contact.country}</span>
+		<span className="contact__data">{this.props.contact.admissionDate}</span>
+		<span className="contact__data">{this.props.contact.company}</span>
+		<span className="contact__data">{this.props.contact.department}</span>
+	</article>
     );
   }
 }

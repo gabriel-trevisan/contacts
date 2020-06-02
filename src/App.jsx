@@ -13,7 +13,8 @@ class App extends React.Component {
     super(props);
 
     this.state = {
-      contacts: []
+      contacts: [],
+      search: ''
     }
   }
 
@@ -33,23 +34,21 @@ class App extends React.Component {
     this.getContacts();
   }
 
-  handleFilter = (value) => {
-    const contacts = this.state.contacts.filter((contact) => {
-      return contact.name.indexOf(value) >= 0;
-    })
-    this.setState({
-      contacts: contacts
-    });
-  }
+  handleFilter = (value) => (this.setState({ search: value.toLowerCase()}));
 
   render() {
+
+    const filteredContacts = this.state.contacts.filter((contact) => {
+      return contact.name.toLowerCase().indexOf(this.state.search) >= 0;
+    })
+
     return (
       <React.Fragment>
         <Topbar>
           <LogoSvg alt="Logo Instagram" />
         </Topbar>
         <Filters handleFilter={this.handleFilter} />
-        <Contacts contacts={this.state.contacts} />
+        <Contacts contacts={filteredContacts} />
       </React.Fragment>
     )
   }
