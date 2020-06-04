@@ -1,4 +1,5 @@
 import React from 'react';
+import Button from './Button';
 
 class Filters extends React.Component {
 
@@ -6,7 +7,16 @@ class Filters extends React.Component {
 		super(props);
 
 		this.state = {
-			value: ''
+			value: '',
+			selected: '',
+			buttons: [
+				{name: "Nome", order: "name"},
+				{name: "País", order: "country"},
+				{name: "Empresa", order: "company"},
+				{name: "Departamento", order: "department"},
+				{name: "Data de admissão", order: "admission"}
+			],
+			order: ''
 		}
 	}
 
@@ -15,6 +25,14 @@ class Filters extends React.Component {
 			value: event.target.value
 		});
 		this.props.handleFilter(event.target.value);
+	}
+
+	handleOrder = (name, order) => {
+		this.setState({
+			selected: name,
+			order: order
+		})
+		this.props.handleOrder(order);
 	}
 
 	render() {
@@ -33,25 +51,17 @@ class Filters extends React.Component {
 					</button>
 					</div>
 
-					<button className="filters__item is-selected">
-					Nome <i className="fas fa-sort-down" />
-					</button>
+					{this.state.buttons.map((button, index) => (
+						<Button
+							id={button.id}
+							name={button.name}
+							key={index}
+							handleOrder={this.handleOrder}
+							selected={this.state.selected === button.name}
+							order={button.order}
+						/>
+					))}
 
-					<button className="filters__item">
-					País <i className="fas fa-sort-down" />
-					</button>
-
-					<button className="filters__item">
-					Empresa <i className="fas fa-sort-down" />
-					</button>
-
-					<button className="filters__item">
-					Departamento <i className="fas fa-sort-down" />
-					</button>
-
-					<button className="filters__item">
-					Data de admissão <i className="fas fa-sort-down" />
-					</button>
 				</section>
 			</div>
 		);

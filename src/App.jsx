@@ -14,7 +14,8 @@ class App extends React.Component {
 
     this.state = {
       contacts: [],
-      search: ''
+      search: '',
+      order: ''
     }
   }
 
@@ -36,9 +37,25 @@ class App extends React.Component {
 
   handleFilter = (value) => (this.setState({ search: value.toLowerCase()}));
 
+  handleOrder = (value) => (this.setState({ order: value}));
+
   render() {
 
-    const filteredContacts = this.state.contacts.filter((contact) => {
+    let filteredContacts = [];
+
+    if(this.state.order === 'name') {
+      filteredContacts = this.state.contacts.sort((a, b) => {
+        if (a.name > b.name) {
+          return 1;
+        }
+        if (a.name < b.name) {
+          return -1;
+        }
+        return 0;
+      });
+    } 
+
+    filteredContacts = this.state.contacts.filter((contact) => {
       return contact.name.toLowerCase().indexOf(this.state.search) >= 0;
     })
 
@@ -47,7 +64,7 @@ class App extends React.Component {
         <Topbar>
           <LogoSvg alt="Logo Instagram" />
         </Topbar>
-        <Filters handleFilter={this.handleFilter} />
+        <Filters handleFilter={this.handleFilter} handleOrder={this.handleOrder}/>
         <Contacts contacts={filteredContacts} />
       </React.Fragment>
     )
