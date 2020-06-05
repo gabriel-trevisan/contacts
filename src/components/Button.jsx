@@ -14,7 +14,7 @@ class Button extends React.Component{
                 className={`filters__item ${selected ? "is-selected" : ""}`}
             >
                 {name} 
-                {selected && <i className={`fas ${asc ? "fa-sort-down" : "fa-sort-up"}`}/>}
+                {selected && <i className={`fas ${asc ? "fa-sort-up" : "fa-sort-down"}`}/>}
             </button>
        )
     }
