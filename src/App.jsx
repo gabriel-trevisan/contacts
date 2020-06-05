@@ -15,7 +15,8 @@ class App extends React.Component {
     this.state = {
       contacts: [],
       search: '',
-      order: ''
+      order: '',
+      asc: true
     }
   }
 
@@ -37,21 +38,36 @@ class App extends React.Component {
 
   handleFilter = (value) => (this.setState({ search: value.toLowerCase()}));
 
-  handleOrder = (value) => (this.setState({ order: value}));
+  handleOrder = (value, asc) => (this.setState({ order: value, asc: asc}));
 
   render() {
 
     let filteredContacts = [];
+    let {order, asc} = this.state;
 
-    if(this.state.order === 'name') {
+    if(order) {
       filteredContacts = this.state.contacts.sort((a, b) => {
-        if (a.name > b.name) {
-          return 1;
+        if(asc){
+
+          if (a[order] > b[order]) {
+            return 1;
+          }
+          if (a[order] < b[order]) {
+            return -1;
+          }
+          return 0;
+          
+        } else {
+
+          if (a[order] < b[order]) {
+            return 1;
+          }
+          if (a[order] > b[order]) {
+            return -1;
+          }
+          return 0;
+
         }
-        if (a.name < b.name) {
-          return -1;
-        }
-        return 0;
       });
     } 
 

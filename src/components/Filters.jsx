@@ -14,9 +14,10 @@ class Filters extends React.Component {
 				{name: "País", order: "country"},
 				{name: "Empresa", order: "company"},
 				{name: "Departamento", order: "department"},
-				{name: "Data de admissão", order: "admission"}
+				{name: "Data de admissão", order: "admissionDate"}
 			],
-			order: ''
+			order: '',
+			asc: true
 		}
 	}
 
@@ -27,15 +28,19 @@ class Filters extends React.Component {
 		this.props.handleFilter(event.target.value);
 	}
 
-	handleOrder = (name, order) => {
+	handleOrder = (name, order, asc) => {
 		this.setState({
 			selected: name,
-			order: order
+			order: order,
+			asc: asc
 		})
-		this.props.handleOrder(order);
+		this.props.handleOrder(order, asc);
 	}
 
 	render() {
+
+		const { buttons, value, selected, asc } = this.state;
+
 		return (
 			<div className="container" data-testid="filters">
 				<section className="filters">
@@ -43,7 +48,7 @@ class Filters extends React.Component {
 					<input type="text" 
 						className="filters__search__input" 
 						placeholder="Pesquisar"
-						value={this.state.value}
+						value={value}
 						onChange={this.handleChange} 
 					/>
 					<button className="filters__search__icon">
@@ -51,14 +56,14 @@ class Filters extends React.Component {
 					</button>
 					</div>
 
-					{this.state.buttons.map((button, index) => (
+					{buttons.map((button, index) => (
 						<Button
-							id={button.id}
 							name={button.name}
 							key={index}
 							handleOrder={this.handleOrder}
-							selected={this.state.selected === button.name}
+							selected={selected === button.name}
 							order={button.order}
+							asc={asc && selected === button.name}
 						/>
 					))}
 
