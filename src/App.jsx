@@ -4,6 +4,7 @@ import { ReactComponent as LogoSvg } from "./assets/img/logo.svg";
 import Topbar from "./components/Topbar";
 import Filters from "./components/Filters";
 import Contacts from "./components/Contacts";
+import data from "./data/data.json";
 
 import './App.scss';
 
@@ -21,15 +22,18 @@ class App extends React.Component {
   }
 
   getContacts() {
-    fetch("https://5e82ac6c78337f00160ae496.mockapi.io/api/v1/contacts")
-      .then(res => res.json())
-      .then(
-        (result) => {
-          this.setState({
-            contacts: result
-          });
-        }
-      )
+    // fetch("https://5e82ac6c78337f00160ae496.mockapi.io/api/v1/contacts")
+    //   .then(res => res.json())
+    //   .then(
+    //     (result) => {
+    //       this.setState({
+    //         contacts: result
+    //       });
+    //     }
+    //   )
+    this.setState({
+      contacts: data
+    });
   }
 
   componentDidMount(){
